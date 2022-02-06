@@ -33,14 +33,11 @@ public class RestUtils {
     }
 
     public static Response get(Map<String, String> header, String endpoint) {
-        return RestAssured.given()
+        return response = RestAssured.given()
                 .relaxedHTTPSValidation()
                 .headers(header)
                 .when()
                 .get(endpoint)
                 .thenReturn();
     }
-
-
-
 }
