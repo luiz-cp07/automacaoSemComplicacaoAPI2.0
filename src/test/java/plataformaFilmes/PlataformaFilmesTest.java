@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.RestUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class PlataformaFilmesTest {
         RestUtils.setBaseURI("http://localhost:8080/");
 
         String json = "{" +
-                "    \"email\": \"aluno@email.com\",\n" +
+                "    \"email\": \"aluno@email.com\"," +
                 "    \"senha\": \"123456\"" +
                 "}";
 
@@ -32,6 +33,7 @@ public class PlataformaFilmesTest {
 
         assertEquals(200, RestUtils.getResponse().statusCode());
         String token = RestUtils.getResponse().jsonPath().get("token");
+
     }
 
     @BeforeAll
@@ -43,6 +45,7 @@ public class PlataformaFilmesTest {
 
         assertEquals(200, response.statusCode());
         LoginMap.token = response.jsonPath().get("token");
+
     }
 
     @Test
@@ -51,7 +54,6 @@ public class PlataformaFilmesTest {
         header.put("Authorization", "Bearer "+LoginMap.token);
 
         Response response = RestUtils.get(header, "categorias");
-
         assertEquals(200, response.statusCode());
         System.out.println(response.jsonPath().get().toString());
 
@@ -59,4 +61,20 @@ public class PlataformaFilmesTest {
         List<String> listTipo = response.jsonPath().get("tipo");
         assertTrue(listTipo.contains("Terror"));
     }
+
+    @Test
+    public void teste(){
+        String[] vetorCompras = {"arroz", "feijao", "cerveja", "carne"};
+        System.out.println(vetorCompras[1]);
+
+        List<String> listaCompras = new ArrayList<>();
+        listaCompras.add("arroz");
+        listaCompras.add("feijao");
+        listaCompras.add("cerveja");
+        listaCompras.add("carne");
+        listaCompras.add("whisky");
+
+        System.out.println(listaCompras.get(4));
+    }
+
 }
